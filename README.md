@@ -1,7 +1,7 @@
 # conventions
 conventions i use to be consistent as much as possible.
 
-# git conventions
+# git
 ## commits
 * use the `english language`
 * use `imperative` and `present tense`
@@ -49,3 +49,19 @@ example:
 # custom - 20200805 - 2 - rfischer: set "-march" and "-mtune" to "ivybridge", set "-ftree-vectorize" and use "-O2"
 COMMON_FLAGS="-ftree-vectorize -O2 -pipe -march=ivybridge -mtune=ivybridge"
 ```
+
+# ansible
+## variables
+## task structure
+## and so on
+
+# issues
+## structure
+short description
+
+working steps
+
+check list
+
+---
+sources
