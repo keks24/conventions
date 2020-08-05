@@ -27,6 +27,7 @@ example:
 
 # editing configuration files
 * always keep the default by `commenting it`
+* add further comments underneath
 
 ```no-highlight
 <comment_sign> custom - YYYYMMDD - <issue_number> - <first_letter_of_firstname><lastname>: <short_description>
