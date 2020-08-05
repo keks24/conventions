@@ -6,6 +6,16 @@ conventions i use to be consistent as much as possible.
 * use the `english language`
 * use `imperative` and `present tense`
 * use `commas` as delimiter
+* keep everything `lowercase`
+* keep descriptions as `short` as possible
+* commit each file `individually`
+* no bullshit commits, like: `i have done something`, `find the mistake`
+    * no stupid mass commits, like: `git commit *`
+
+example:
+```bash
+$ git commit README.md --message="write more about committing"
+```
 
 ## branch naming convention
 * use `underlines` as description delimiter
