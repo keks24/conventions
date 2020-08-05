@@ -22,7 +22,7 @@ conventions i use to be consistent as much as possible.
 
 example:
 ```no-highlight
-#3/feature/client_zsh_config
+3/feature/client_zsh_config
 ```
 
 # editing configuration files
@@ -36,6 +36,6 @@ example:
 example:
 ```no-highlight
 #COMMON_FLAGS="-O2 -pipe"
-# custom - 20200805 - #2 - rfischer: set "-march" and "-mtune" to "ivybridge", set "-ftree-vectorize" and use "-O2"
+# custom - 20200805 - 2 - rfischer: set "-march" and "-mtune" to "ivybridge", set "-ftree-vectorize" and use "-O2"
 COMMON_FLAGS="-ftree-vectorize -O2 -pipe -march=ivybridge -mtune=ivybridge"
 ```
