@@ -112,12 +112,12 @@ example:
 ```no-highlight
 New backup solution: Set up a decent backup server
 
-Since there is no decent backup solution yet, one has to be found. Maybe the following:
+Since there is no decent backup solution yet, one has to be found. Maybe one the following:
 
-"Bareos"
-"Borg"
-"dd"
-"rsync"
+* "Bareos"
+* "Borg"
+* "dd"
+* "rsync"
 
 # Working steps
 (x) Requirement analysis
