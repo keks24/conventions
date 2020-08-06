@@ -34,6 +34,40 @@ example:
 ```no-highlight
 3/feature/client_zsh_config
 ```
+```bash
+$ tree .git/{logs,refs}
+```
+```no-highlight
+logs
+├── HEAD
+└── refs/
+    ├── heads/
+    │   ├── 3/
+    │   │   └── feature/
+    │   │       └── client_zsh_config
+    │   └── master
+    └── remotes/
+        └── origin/
+            ├── 3/
+            │   └── feature/
+            │       └── client_zsh_config
+            └── master
+refs
+├── heads/
+│   ├── 3/
+│   │   └── feature/
+│   │       └── client_zsh_config
+│   └── master
+├── remotes/
+│   └── origin/
+│       ├── 3/
+│       │   └── feature/
+│       │       └── client_zsh_config
+│       └── master
+└── tags/
+    ├── v1.0.0
+    └── v1.1.0
+```
 
 # editing configuration files
 * always keep the default by `commenting it`
