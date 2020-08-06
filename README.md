@@ -83,6 +83,11 @@ example:
 # custom - 20200805 - 2 - rfischer: set "-march" and "-mtune" to "ivybridge", set "-ftree-vectorize" and use "-O2"
 COMMON_FLAGS="-ftree-vectorize -O2 -pipe -march=ivybridge -mtune=ivybridge"
 ```
+```no-highlight
+# custom - 20200806 - rfischer: use "elogv" to read log files from "portage"
+PORTAGE_ELOG_CLASSES="warn error log"
+PORTAGE_ELOG_SYSTEM="save"
+```
 
 # ansible
 ## variables
