@@ -89,13 +89,60 @@ COMMON_FLAGS="-ftree-vectorize -O2 -pipe -march=ivybridge -mtune=ivybridge"
 ## task structure
 ## and so on
 
-# issues
+# issue tracking
 ## structure
-short description
+### jira
+```no-highlight
+subject: <main_subject>: <short_description>
 
-working steps
+<detailed_description>
 
-check list
+# working steps
+<chronological_list>
 
+# check list
+<fuzzy_list>
 ---
-sources
+<link_to_source1>
+<link_to_source2>
+<link_to_sourcen>
+```
+
+example:
+```no-highlight
+New backup solution: Set up a decent backup server
+
+Since there is no decent backup solution yet, one has to be found. Maybe the following:
+
+"Bareos"
+"Borg"
+"dd"
+"rsync"
+
+# Working steps
+(x) Requirement analysis
+    (x) Which program would be suitable for our infrastructure?
+    (x) Which RAID method should be used?
+    (x) Which hard drives are the best?
+        (x) Research: mSATA, M2, SSD, HDD (10.000 RPM)
+(x) Do a research about decent backup solutions and test all of them
+    (x) Bareos
+    (x) Borg
+    (x) dd
+    (x) rsync
+(x) Do a test for several weeks/months
+
+# Check list
+(x) backup_server1 (Bareos)
+(x) backup_server2 (Borg)
+(x) backup_server3 (dd)
+(x) backup_server4 (rsync)
+---
+https://<i_found_some_information_here>.com
+https://<i_found_some_information_there>.com
+```
+
+### git issues
+issue templates
+Ansible
+Gitea
