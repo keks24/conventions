@@ -38,7 +38,7 @@ example:
 $ tree .git/{logs,refs}
 ```
 ```no-highlight
-logs
+.git/logs
 ├── HEAD
 └── refs/
     ├── heads/
@@ -52,7 +52,7 @@ logs
             │   └── feature/
             │       └── client_zsh_config
             └── master
-refs
+.git/refs
 ├── heads/
 │   ├── 3/
 │   │   └── feature/
