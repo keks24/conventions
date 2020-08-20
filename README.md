@@ -111,6 +111,7 @@ PORTAGE_ELOG_SYSTEM="save"
 
 ### copy
 * use this module to copy a `single file`
+* using this module to copy `multiple files` may `result in an error`!
 
 ### synchronize
 * use this module to copy `multiple files`
