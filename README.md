@@ -1,6 +1,47 @@
 # conventions
 conventions i use to be consistent as much as possible.
 
+Table of Contents
+=================
+   * [conventions](#conventions)
+      * [Table of Contents](#table-of-contents)
+   * [git](#git)
+      * [commits](#commits)
+      * [example](#example)
+      * [branch naming convention](#branch-naming-convention)
+         * [example](#example-1)
+   * [editing configuration files](#editing-configuration-files)
+      * [example](#example-2)
+   * [ansible](#ansible)
+      * [general](#general)
+      * [ansible.cfg](#ansiblecfg)
+         * [example configuration file](#example-configuration-file)
+      * [modules](#modules)
+         * [general](#general-1)
+         * [copy](#copy)
+         * [synchronize](#synchronize)
+         * [template](#template)
+         * [git](#git-1)
+         * [shell](#shell)
+         * [replace](#replace)
+         * [lineinfile](#lineinfile)
+      * [variables](#variables)
+      * [role structure](#role-structure)
+      * [task structure](#task-structure)
+         * [example tasks](#example-tasks)
+            * [common_packages.yml](#common_packagesyml)
+            * [harden_ssh.yml](#harden_sshyml)
+            * [prepare_directories.yml](#prepare_directoriesyml)
+            * [gitalias.yml](#gitaliasyml)
+            * [main.yml](#mainyml)
+            * [tmux_global.yml](#tmux_globalyml)
+   * [issue tracking](#issue-tracking)
+      * [structure](#structure)
+         * [jira](#jira)
+            * [example](#example-3)
+         * [git issues](#git-issues)
+            * [to-do](#to-do)
+
 # git
 ## commits
 * use the `english language`
@@ -97,6 +138,45 @@ PORTAGE_ELOG_SYSTEM="save"
 
 ## `ansible.cfg`
 * use `ssh pipelining` and not the `deprecated accelerate` option!!
+
+### example configuration file
+```ini
+[defaults]
+host_key_checking       = no
+force_handlers          = no
+private_role_vars       = yes
+forks                   = 2
+gathering               = smart
+fact_caching            = jsonfile
+fact_caching_connection = /home/ansible/.local/etc/ansible/cached_facts/
+fact_caching_timeout    = 86400
+# bookmark "fact_path" does not work somehow; create an issue on github?
+fact_path               = /home/ansible/.ansible/facts.d/
+log_path                = /var/log/ansible/ansible.log
+#vault_password_file     = ~/.ansible/vault_pass
+remote_tmp              = /home/ansible/.ansible/tmp/
+local_tmp               = /home/ansible/.ansible/tmp/
+#retry_files_enabled    = False
+retry_files_save_path   = /home/ansible/.local/etc/ansible/retry/
+roles_path              = /home/ansible/git/provisioning/roles/
+ansible_managed         = this file is managed by ansible, all changes will be lost!
+stdout_callback         = yaml
+nocows                  = 1
+interpreter_python      = auto
+
+[ssh_connection]
+ssh_args                = -o ControlMaster=auto -o ControlPersist=10m -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes
+# "control_path_dir" is "%(directory)s" in "control_path"
+control_path_dir        = /home/ansible/.ssh/cm/
+control_path            = %(directory)s/ansible-%%r@%%h:%%p[%%n].cm
+transfer_method         = scp
+# when using sudo (become: yes): disable "requiretty" in "/etc/sudoers" on all managed hosts for "pipelining" (should be disabled by default)
+pipelining              = true
+
+[inventory]
+enable_plugins          = yaml, host_list
+ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm, .swp, .txt, ~
+```
 
 ## modules
 ### general
@@ -274,45 +354,6 @@ PORTAGE_ELOG_SYSTEM="save"
     state: "{{ PACKAGE_STATE }}"
   tags:
     - tmux
-```
-
-## example `ansible.cfg`
-```ini
-[defaults]
-host_key_checking       = no
-force_handlers          = no
-private_role_vars       = yes
-forks                   = 2
-gathering               = smart
-fact_caching            = jsonfile
-fact_caching_connection = /home/ansible/.local/etc/ansible/cached_facts/
-fact_caching_timeout    = 86400
-# bookmark "fact_path" does not work somehow; create an issue on github?
-fact_path               = /home/ansible/.ansible/facts.d/
-log_path                = /var/log/ansible/ansible.log
-#vault_password_file     = ~/.ansible/vault_pass
-remote_tmp              = /home/ansible/.ansible/tmp/
-local_tmp               = /home/ansible/.ansible/tmp/
-#retry_files_enabled    = False
-retry_files_save_path   = /home/ansible/.local/etc/ansible/retry/
-roles_path              = /home/ansible/git/provisioning/roles/
-ansible_managed         = this file is managed by ansible, all changes will be lost!
-stdout_callback         = yaml
-nocows                  = 1
-interpreter_python      = auto
-
-[ssh_connection]
-ssh_args                = -o ControlMaster=auto -o ControlPersist=10m -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes
-# "control_path_dir" is "%(directory)s" in "control_path"
-control_path_dir        = /home/ansible/.ssh/cm/
-control_path            = %(directory)s/ansible-%%r@%%h:%%p[%%n].cm
-transfer_method         = scp
-# when using sudo (become: yes): disable "requiretty" in "/etc/sudoers" on all managed hosts for "pipelining" (should be disabled by default)
-pipelining              = true
-
-[inventory]
-enable_plugins          = yaml, host_list
-ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm, .swp, .txt, ~
 ```
 
 # issue tracking
