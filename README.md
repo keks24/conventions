@@ -3,8 +3,6 @@ conventions i use to be consistent as much as possible.
 
 Table of Contents
 =================
-   * [conventions](#conventions)
-      * [Table of Contents](#table-of-contents)
    * [git](#git)
       * [commits](#commits)
       * [example](#example)
