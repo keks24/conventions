@@ -111,30 +111,30 @@ PORTAGE_ELOG_SYSTEM="save"
 
 ### copy
 * use this module to copy a `single file`
-* using this module to copy `multiple files` may `result in an error`!
+* using this module to copy `multiple files` may `result in an error!`
 
 ### synchronize
 * use this module to copy `multiple files`
 
 ### template
-* when `copying template files` always use `# {{ ansible_managed }}` at the `top of the file` to indicate that the file was copied by ansible and should not be edited without thought
+* when `copying template files`, always use `# {{ ansible_managed }}` at the `top of the file` to indicate that the file was `copied using Ansible` and `should not be edited` without thought
 
 ### git
 * when cloning, always use `force: "yes"`
 
 ### shell
-* to `sanitise` any variables passed to the `shell module`, use `{{ var | quote }}`, instead of `{{ var }}`, to make sure they do not include `evil things like semicolons`
+* to `sanitise` any variables, use `{{ var | quote }}`, instead of `{{ var }}`, to make sure, they do not include `evil things like semicolons`
 * make it idempotent by creating files in the directory `/usr/local/etc/.ansible_dotfile_switches` and using `creates`, if it does make sense
-    * it might be better to create `custom Ansible facts` for this
+    * it might be better to create `custom Ansible facts` and using `when` for this
 * when using the module, use `creates` to gurantee idempotency
 
 ### replace
 * when `uncommenting lines`, use this module, instead of `lineinfile` to avoid redundant options
-* always use `very precise regular expressions` to find a certain keyword
+* always use `very precise regular expressions` to find a certain keyword: `/etc/ssh/sshd_config/`: `(.)?.*Port.*[0-9]{1,5}`
 * when writing regular expressions, use `double quotes`, if necessary, use `single quotes`
 
 ### lineinfile
-* always use `very precise regular expressions` to find a certain keyword
+* always use `very precise regular expressions` to find a certain keyword: `/etc/ssh/sshd_config/`: `(.)?.*Port.*[0-9]{1,5}`
 * when writing regular expressions, use `double quotes`, if necessary, use `single quotes`
 
 ## variables
@@ -142,20 +142,21 @@ PORTAGE_ELOG_SYSTEM="save"
 * when using variables in `ansible vault`, use `VAULT_` as prefix
 
 ## role structure
-* use `underscore` as delimiter for role names
+* use `underscore` as delimiter for role `directory names`
 * `mirror the remote directory structure` in roles to know where the file will be placed, so analysing the `playbook` is not necessary: `files/etc/zsh/zshrc.local`, `templates/etc/nginx/sites-available/01-domain-name.local`
 * use `meta` directory to include dependencies
 
 ## task structure
 * use the new `newline syntax` and do use the `equal sign syntax` to improve readability!
-* always use the `main.yml` to `include` other yml files, also `set variables` for met conditions
+* always use the `main.yml` to `include` other `.yml` files
+    * also `set variables` for met conditions
 * write task names in `lowercase`
     * write them `without quotes` and `emphasise` keywords with quotes
-    * the name limit should be `80 characters`
-* describe as distinct as possible
-* write `role names` in quotes
+    * the description limit should be `80 characters`
+    * describe as distinct as possible
+* always use `quotes`, when writing the `value part`: `path: "/etc/ssh/sshd_config"`
 * `add tags` at the end of every task: `the role name` is the first tag (more follows, if it makes sense)
-* use `include_*` modules, when using conditionals (`when:`) and `import_*` for anything else
+* use `include_*` modules, when using conditionals (`when`) and `import_*` for anything else
 * always use `yaml lists`, when writing `tags` or `when` statements
 * if `compiling` is necessary, do every step as `separate task`. this makes `debugging` easier
 * always execute `*_global.yml` playbooks at the `beginning` within a `main.yml` file
@@ -165,11 +166,24 @@ PORTAGE_ELOG_SYSTEM="save"
 * always write `states` at the `bottom` of a task
 * `override` variables in `defaults/main.yml` with an `empty string`, when invoking the role with a parameter: `- { role: "somerole", VARIABLE: "something" }`
 * when `installing multiple packages`, do not use `with_items`, use a `yaml list` instead, otherwise every package gets installed `one by one`, which is very slow
-* try to `avoid changing` default configuration files as much as possible, look for a way to set `custom settings` or `look for directories`, which were made for that: `/etc/logrotate.d/`, `/etc/cron.d/`
+* try to `avoid changing` default configuration files as much as possible
+    * look for a way to set `custom settings`
+    * look for `directories`, which were made for this: `/etc/logrotate.d/`, `/etc/cron.d/`
 * when installing packages, use the following convention: `<write_what_it_does> (<package_name>)`
     * if there are `multiple packages`, do not include any package name
 
 ### example tasks
+#### `common_packages.yml`
+```yml
+- name: install common tools
+  package:
+    name:
+      - "curl"
+      - "file"
+      - "gawk"
+  [...]
+```
+
 #### `harden_ssh.yml`
 ```yml
 - name: set ssh port (live)
@@ -233,6 +247,16 @@ PORTAGE_ELOG_SYSTEM="save"
 
 #### `main.yml`
 ```yml
+- import_tasks: "neovim_global.yml"
+  tags:
+    - neovim
+
+- include_tasks: "neovim_root.yml"
+  when:
+    - USERNAME == "root"
+  tags:
+    - neovim
+
 - include_tasks: "neovim_other_user.yml"
   when:
     - USERNAME != "root"
