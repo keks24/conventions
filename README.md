@@ -5,11 +5,11 @@ Table of Contents
 =================
 * [git](#git)
    * [commits](#commits)
-      * [example](#example)
+      * [example commit](#example-commit)
    * [branch naming convention](#branch-naming-convention)
-      * [example](#example-1)
+      * [example branch name](#example-branch-name)
 * [editing configuration files](#editing-configuration-files)
-   * [example](#example-2)
+   * [example configuration edit](#example-configuration-edit)
 * [ansible](#ansible)
    * [general](#general)
    * [ansible.cfg](#ansiblecfg)
@@ -36,7 +36,7 @@ Table of Contents
 * [issue tracking](#issue-tracking)
    * [structure](#structure)
       * [jira](#jira)
-         * [example](#example-3)
+         * [example ticket](#example-ticket)
       * [git issues](#git-issues)
          * [to-do](#to-do)
 
@@ -51,7 +51,7 @@ Table of Contents
 * no bullshit commits, like: `i have done something`, `find the mistake`
     * no stupid mass commits, like: `git commit *`
 
-### example
+### example commit
 ```bash
 $ git commit README.md --message="write more about committing"
 ```
@@ -69,7 +69,7 @@ $ git commit README.md --message="write more about committing"
 <issue_number>/merge/<short_description>
 ```
 
-### example
+### example branch name
 ```no-highlight
 3/feature/client_zsh_config
 ```
@@ -116,7 +116,7 @@ $ tree .git/{logs,refs}
 <comment_sign> custom - YYYYMMDD - <issue_number> - <first_letter_of_firstname><lastname>: <short_description>
 ```
 
-## example
+## example configuration edit
 ```no-highlight
 #COMMON_FLAGS="-O2 -pipe"
 # custom - 20200805 - 2 - rfischer: set "-march" and "-mtune" to "ivybridge", set "-ftree-vectorize" and use "-O2"
@@ -373,7 +373,7 @@ subject: <main_subject>: <short_description>
 <link_to_sourcen>
 ```
 
-#### example
+#### example ticket
 ```no-highlight
 New backup solution: Set up a decent backup server
 
