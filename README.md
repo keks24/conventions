@@ -223,6 +223,43 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
 * use `underscore` as delimiter for role `directory names`
 * `mirror the remote directory structure` in roles to know where the file will be placed, so analysing the `playbook` is not necessary: `files/etc/zsh/zshrc.local`, `templates/etc/nginx/sites-available/01-domain-name.local`
 * use `meta` directory to include dependencies
+* daemons should be controlled by `handlers`
+    * every possible way to control the daemon should be available in the directory `handlers`
+
+### example handlers
+#### `roles/aria2c/handlers/aria2c_systemd_handlers.yml`
+```yml
+---
+- name: handler_start_aria2c
+  systemd:
+    name: "aria2c.service"
+    daemon_reload: "yes"
+    state: "started"
+
+- name: handler_stop_aria2c
+  systemd:
+    name: "aria2c.service"
+    daemon_reload: "yes"
+    state: "stopped"
+
+- name: handler_restart_aria2c
+  systemd:
+    name: "aria2c.service"
+    daemon_reload: "yes"
+    state: "restarted"
+
+- name: handler_enable_aria2c
+  systemd:
+    name: "aria2c.service"
+    daemon_reload: "yes"
+    enabled: "yes"
+
+- name: handler_disable_aria2c
+  systemd:
+    name: "aria2c.service"
+    daemon_reload: "yes"
+    enabled: "no"
+```
 
 ## task structure
 * use the new `newline syntax` and do use the `equal sign syntax` to improve readability!
