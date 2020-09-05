@@ -25,6 +25,8 @@ Table of Contents
       * [lineinfile](#lineinfile)
    * [variables](#variables)
    * [role structure](#role-structure)
+      * [example handlers](#example-handlers)
+         * [roles/aria2c/handlers/aria2c_systemd_handlers.yml](#rolesaria2chandlersaria2c_systemd_handlersyml)
    * [task structure](#task-structure)
       * [example tasks](#example-tasks)
          * [common_packages.yml](#common_packagesyml)
@@ -39,6 +41,7 @@ Table of Contents
          * [example ticket](#example-ticket)
       * [git issues](#git-issues)
          * [to-do](#to-do)
+* [Table of Contents](#table-of-contents-1)
 
 # git
 ## commits
