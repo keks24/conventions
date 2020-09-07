@@ -130,6 +130,7 @@ $ echo "${nom}"
 ```bash
 $ nom="123"
 $ if [[ "${nom}" == "123" ]]; then echo "nom"; else echo "NOM"; fi
+```
 
 ### Anything else
 ```no-highlight
