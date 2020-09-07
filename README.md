@@ -8,6 +8,10 @@ Table of Contents
       * [example commit](#example-commit)
    * [branch naming convention](#branch-naming-convention)
       * [example branch name](#example-branch-name)
+* [placeholder variables](#placeholder-variables)
+   * [example variables](#example-variables)
+      * [Bash](#bash)
+      * [Anything else](#anything-else)
 * [editing configuration files](#editing-configuration-files)
    * [example configuration edit](#example-configuration-edit)
 * [ansible](#ansible)
@@ -41,7 +45,6 @@ Table of Contents
          * [example ticket](#example-ticket)
       * [git issues](#git-issues)
          * [to-do](#to-do)
-* [Table of Contents](#table-of-contents-1)
 
 # git
 ## commits
