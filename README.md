@@ -111,6 +111,12 @@ $ tree .git/{logs,refs}
     └── v1.1.0
 ```
 
+# placeholder variables
+* use the personalised variable `nom` instead of `test`.
+    * `test` is built-in command in `Bash`
+* `<some_short_description>`
+    * `some_` is a prefix to emphasise, that it is a `placeholder variable`
+
 # editing configuration files
 * always keep the default by `commenting it`
 * every edit causes a further comment underneath, to make backtraces possible
