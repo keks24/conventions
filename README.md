@@ -117,6 +117,18 @@ $ tree .git/{logs,refs}
 * `<some_short_description>`
     * `some_` is a prefix to emphasise, that it is a `placeholder variable`
 
+## example variables
+### Bash
+```bash
+$ nom="123"
+$ echo "${nom}"
+```
+
+### Anything else
+```no-highlight
+/home/<some_username>/downloads/
+```
+
 # editing configuration files
 * always keep the default by `commenting it`
 * every edit causes a further comment underneath, to make backtraces possible
