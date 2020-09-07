@@ -117,6 +117,7 @@ $ tree .git/{logs,refs}
 # placeholder variables
 * use the personalised variable `nom` instead of `test`.
     * `test` is built-in command in `Bash`
+    * when using `conditional statements`, `nom` means `OK` and `NOM` means `not OK`.
 * `<some_short_description>`
     * `some_` is a prefix to emphasise, that it is a `placeholder variable`
 
@@ -126,6 +127,9 @@ $ tree .git/{logs,refs}
 $ nom="123"
 $ echo "${nom}"
 ```
+```bash
+$ nom="123"
+$ if [[ "${nom}" == "123" ]]; then echo "nom"; else echo "NOM"; fi
 
 ### Anything else
 ```no-highlight
