@@ -54,6 +54,7 @@ Table of Contents
 * keep everything `lowercase`
 * keep descriptions as `short` as possible
 * commit each file `individually`
+    * do `in-line commits`, if possible
 * no bullshit commits, like: `i have done something`, `find the mistake` or worse `git commit --message="$(curl 'http://api.icndb.com/jokes/random')"` **YES**, Mr. H., I am looking at you! >:(
     * no stupid mass commits, like: `git commit *` or `git commit --all`
 
