@@ -497,16 +497,25 @@ https://<i_found_some_information_there>.com
 * https://github.com/ansible/ansible/issues/66020
 
 ````no-highlight
+<!--- Verify first that your issue is not already reported on GitHub -->
+<!--- Also test if the latest release and devel branch are affected too -->
+<!--- Complete *all* sections as described, this form is processed automatically -->
+
 ##### SUMMARY
+<!--- Explain the problem briefly below -->
 I am using prompt in vars_prompt to manipulate the variable serial in a playbook to define how many of my hosts should be updated at once. I am not sure, if this should be possible, because I am using a variable before it was actually defined. I always guessed, that a playbook is read top-down.
 Is this intended or did I find a bug?
 
 ##### ISSUE TYPE
 Bug Report
-COMPONENT NAME
+
+##### COMPONENT NAME
+<!--- Write the short name of the module, plugin, task or feature below, use your best guess if unsure -->
 lib/ansible/executor/playbook_executor.py#L115
 
 ##### ANSIBLE VERSION
+<!--- Paste verbatim output from "ansible --version" between quotes -->
+```bash
 ansible 2.7.7
   config file = /etc/ansible/ansible.cfg
   configured module search path = ['/home/ansible/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
@@ -514,21 +523,26 @@ ansible 2.7.7
   executable location = /usr/bin/ansible
   python version = 3.7.3 (default, Apr  3 2019, 05:39:12) [GCC 8.3.0]
 The latest stable and devel version are also affected:
-
+```
+```bash
 ansible 2.9.2.post0
   config file = /etc/ansible/ansible.cfg
   configured module search path = [u'/home/ansible/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /tmp/ansible/lib/ansible
   executable location = /tmp/ansible/bin/ansible
   python version = 2.7.16 (default, Oct 10 2019, 22:02:15) [GCC 8.3.0]
+```
+```bash
 ansible 2.10.0.dev0
   config file = /etc/ansible/ansible.cfg
   configured module search path = [u'/home/ansible/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
   ansible python module location = /tmp/ansible/lib/ansible
   executable location = /tmp/ansible/bin/ansible
   python version = 2.7.16 (default, Oct 10 2019, 22:02:15) [GCC 8.3.0]
+```
 
 ##### CONFIGURATION
+<!--- Paste verbatim output from "ansible-config dump --only-changed" between quotes -->
 ANSIBLE_NOCOWS(/home/ansible/provisioning/ansible.cfg) = True
 ANSIBLE_PIPELINING(/home/ansible/provisioning/ansible.cfg) = True
 ANSIBLE_SSH_ARGS(/home/ansible/provisioning/ansible.cfg) = -o ControlMaster=auto -o ControlPersist=5m -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes
@@ -554,6 +568,7 @@ INVENTORY_IGNORE_EXTS(/home/ansible/provisioning/ansible.cfg) = ['.bak', '.cfg',
 RETRY_FILES_SAVE_PATH(/home/ansible/provisioning/ansible.cfg) = /home/ansible/.ansible/retry
 
 ##### OS / ENVIRONMENT
+<!--- Provide all relevant information below, e.g. target OS versions, network device firmware, etc. -->
 ###### Ansible host
 ```bash
 $ uname -a
@@ -573,6 +588,9 @@ BUG_REPORT_URL="https://bugs.debian.org/"
 ```
 
 ##### STEPS TO REPRODUCE
+<!--- Describe exactly how to reproduce the problem, using a minimal test-case -->
+<!--- Paste example playbooks or commands between quotes below -->
+<!--- HINT: You can paste gist.github.com links for larger files -->
 1. Create the following playbook in `/home/ansible/provisioning/playbooks/`:
 
 `update_packages.yml`
@@ -659,9 +677,12 @@ $ ansible-playbook --inventory="inventory.yml" playbooks/update_packages.yml
 3. Enter a number
 
 ##### EXPECTED RESULTS
+<!--- Describe what you expected to happen when running the steps above -->
 It should not work, since I am using a variable, which was actually not defined before.
 
 ##### ACTUAL RESULTS
+<!--- Describe what actually happened. If possible run with extra verbosity (-vvvv) -->
+<!--- Paste verbatim command output between quotes -->
 ```bash
 ansible-playbook 2.7.7
   config file = /home/ansible/provisioning/ansible.cfg
