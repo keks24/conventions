@@ -57,6 +57,14 @@ Table of Contents
     * do `in-line commits`, if possible
 * no bullshit commits, like: `i have done something`, `find the mistake` or worse `git commit --message="$(curl 'http://api.icndb.com/jokes/random')"` **YES**, Mr. H., I am looking at you! >:(
     * no stupid mass commits, like: `git commit *` or `git commit --all`
+### issue and pull-request templates
+* Ansible
+    * https://github.com/ansible/ansible/issues/new/choose
+    * https://github.com/ansible/ansible/tree/devel/.github
+* Gitea
+    * https://github.com/go-gitea/gitea/tree/master/.github
+* Gluster
+    * https://github.com/gluster/glusterfs/tree/master/.github
 
 ### example commit
 ```bash
@@ -482,9 +490,3 @@ Since there is no decent backup solution yet, one has to be found. Maybe one the
 https://<i_found_some_information_here>.com
 https://<i_found_some_information_there>.com
 ```
-
-### git issues
-#### to-do
-* issue templates
-* Ansible
-* Gitea
