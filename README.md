@@ -1,10 +1,9 @@
 # conventions
 conventions i use to be consistent as much as possible.
 
-Table of Contents
-=================
 * [git](#git)
    * [commits](#commits)
+      * [issue and pull-request templates](#issue-and-pull-request-templates)
       * [example commit](#example-commit)
    * [branch naming convention](#branch-naming-convention)
       * [example branch name](#example-branch-name)
@@ -30,7 +29,7 @@ Table of Contents
    * [variables](#variables)
    * [role structure](#role-structure)
       * [example handlers](#example-handlers)
-         * [roles/aria2c/handlers/aria2c_systemd_handlers.yml](#rolesaria2chandlersaria2c_systemd_handlersyml)
+         * [roles/nfs_share/handlers/nfs-kernel-server_handlers.yml](#rolesnfs_sharehandlersnfs-kernel-server_handlersyml)
    * [task structure](#task-structure)
       * [example tasks](#example-tasks)
          * [common_packages.yml](#common_packagesyml)
@@ -43,8 +42,6 @@ Table of Contents
    * [structure](#structure)
       * [jira](#jira)
          * [example ticket](#example-ticket)
-      * [git issues](#git-issues)
-         * [to-do](#to-do)
 
 # git
 ## commits
