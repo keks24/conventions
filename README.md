@@ -543,6 +543,7 @@ ansible 2.10.0.dev0
 
 ##### CONFIGURATION
 <!--- Paste verbatim output from "ansible-config dump --only-changed" between quotes -->
+```bash
 ANSIBLE_NOCOWS(/home/ansible/provisioning/ansible.cfg) = True
 ANSIBLE_PIPELINING(/home/ansible/provisioning/ansible.cfg) = True
 ANSIBLE_SSH_ARGS(/home/ansible/provisioning/ansible.cfg) = -o ControlMaster=auto -o ControlPersist=5m -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes
@@ -566,6 +567,7 @@ HOST_KEY_CHECKING(/home/ansible/provisioning/ansible.cfg) = False
 INVENTORY_ENABLED(/home/ansible/provisioning/ansible.cfg) = ['yaml', 'host_list']
 INVENTORY_IGNORE_EXTS(/home/ansible/provisioning/ansible.cfg) = ['.bak', '.cfg', '.ini', '.md', '.orig', '.pyc', '.pyo', '.retry', '.rpm', '.swp', '.txt', '~']
 RETRY_FILES_SAVE_PATH(/home/ansible/provisioning/ansible.cfg) = /home/ansible/.ansible/retry
+```
 
 ##### OS / ENVIRONMENT
 <!--- Provide all relevant information below, e.g. target OS versions, network device firmware, etc. -->
