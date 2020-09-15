@@ -54,14 +54,6 @@ conventions i use to be consistent as much as possible.
     * do `in-line commits`, if possible
 * no bullshit commits, like: `i have done something`, `find the mistake` or worse `git commit --message="$(curl 'http://api.icndb.com/jokes/random')"` **YES**, Mr. H., I am looking at you! >:(
     * no stupid mass commits, like: `git commit *` or `git commit --all`
-### issue and pull-request templates
-* Ansible
-    * https://github.com/ansible/ansible/issues/new/choose
-    * https://github.com/ansible/ansible/tree/devel/.github
-* Gitea
-    * https://github.com/go-gitea/gitea/tree/master/.github
-* Gluster
-    * https://github.com/gluster/glusterfs/tree/master/.github
 
 ### example commit
 ```bash
@@ -487,3 +479,280 @@ Since there is no decent backup solution yet, one has to be found. Maybe one the
 https://<i_found_some_information_here>.com
 https://<i_found_some_information_there>.com
 ```
+
+### git
+* Ansible
+    * https://github.com/ansible/ansible/issues/new/choose
+    * https://github.com/ansible/ansible/tree/devel/.github
+* Gitea
+    * https://github.com/go-gitea/gitea/tree/master/.github
+* Gluster
+    * https://github.com/gluster/glusterfs/tree/master/.github
+
+#### [example issue](https://github.com/ansible/ansible/issues/66020)
+````no-highlight
+##### SUMMARY
+I am using prompt in vars_prompt to manipulate the variable serial in a playbook to define how many of my hosts should be updated at once. I am not sure, if this should be possible, because I am using a variable before it was actually defined. I always guessed, that a playbook is read top-down.
+Is this intended or did I find a bug?
+
+##### ISSUE TYPE
+Bug Report
+COMPONENT NAME
+lib/ansible/executor/playbook_executor.py#L115
+
+##### ANSIBLE VERSION
+ansible 2.7.7
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/home/ansible/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 3.7.3 (default, Apr  3 2019, 05:39:12) [GCC 8.3.0]
+The latest stable and devel version are also affected:
+
+ansible 2.9.2.post0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/home/ansible/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /tmp/ansible/lib/ansible
+  executable location = /tmp/ansible/bin/ansible
+  python version = 2.7.16 (default, Oct 10 2019, 22:02:15) [GCC 8.3.0]
+ansible 2.10.0.dev0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/home/ansible/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /tmp/ansible/lib/ansible
+  executable location = /tmp/ansible/bin/ansible
+  python version = 2.7.16 (default, Oct 10 2019, 22:02:15) [GCC 8.3.0]
+
+##### CONFIGURATION
+ANSIBLE_NOCOWS(/home/ansible/provisioning/ansible.cfg) = True
+ANSIBLE_PIPELINING(/home/ansible/provisioning/ansible.cfg) = True
+ANSIBLE_SSH_ARGS(/home/ansible/provisioning/ansible.cfg) = -o ControlMaster=auto -o ControlPersist=5m -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes
+ANSIBLE_SSH_CONTROL_PATH(/home/ansible/provisioning/ansible.cfg) = %(directory)s/ansible-%%r@%%h:%%p[%%n].cm
+ANSIBLE_SSH_CONTROL_PATH_DIR(/home/ansible/provisioning/ansible.cfg) = /home/ansible/.ssh/cm/
+CACHE_PLUGIN(/home/ansible/provisioning/ansible.cfg) = jsonfile
+CACHE_PLUGIN_CONNECTION(/home/ansible/provisioning/ansible.cfg) = /home/ansible/.ansible/cached_facts/
+CACHE_PLUGIN_TIMEOUT(/home/ansible/provisioning/ansible.cfg) = 86400
+DEFAULT_FACT_PATH(/home/ansible/provisioning/ansible.cfg) = /home/ansible/.ansible/facts.d
+DEFAULT_FORCE_HANDLERS(/home/ansible/provisioning/ansible.cfg) = False
+DEFAULT_FORKS(/home/ansible/provisioning/ansible.cfg) = 2
+DEFAULT_GATHERING(/home/ansible/provisioning/ansible.cfg) = smart
+DEFAULT_LOCAL_TMP(/home/ansible/provisioning/ansible.cfg) = /home/ansible/.ansible/tmp/ansible-local-20185gdirvb_u
+DEFAULT_LOG_PATH(/home/ansible/provisioning/ansible.cfg) = /var/log/ansible/ansible.log
+DEFAULT_MANAGED_STR(/home/ansible/provisioning/ansible.cfg) = this file is managed by ansible, all changes will be lost!
+DEFAULT_PRIVATE_ROLE_VARS(/home/ansible/provisioning/ansible.cfg) = True
+DEFAULT_ROLES_PATH(/home/ansible/provisioning/ansible.cfg) = ['/home/ansible/provisioning/roles']
+DEFAULT_SSH_TRANSFER_METHOD(/home/ansible/provisioning/ansible.cfg) = scp
+DEFAULT_STDOUT_CALLBACK(/home/ansible/provisioning/ansible.cfg) = yaml
+HOST_KEY_CHECKING(/home/ansible/provisioning/ansible.cfg) = False
+INVENTORY_ENABLED(/home/ansible/provisioning/ansible.cfg) = ['yaml', 'host_list']
+INVENTORY_IGNORE_EXTS(/home/ansible/provisioning/ansible.cfg) = ['.bak', '.cfg', '.ini', '.md', '.orig', '.pyc', '.pyo', '.retry', '.rpm', '.swp', '.txt', '~']
+RETRY_FILES_SAVE_PATH(/home/ansible/provisioning/ansible.cfg) = /home/ansible/.ansible/retry
+
+##### OS / ENVIRONMENT
+###### Ansible host
+```bash
+$ uname -a
+Linux ansible 5.3.13-1-pve #1 SMP PVE 5.3.13-1 (Thu, 05 Dec 2019 07:18:14 +0100) x86_64 GNU/Linux
+```
+```bash
+$ < /etc/os-release
+PRETTY_NAME="Debian GNU/Linux 10 (buster)"
+NAME="Debian GNU/Linux"
+VERSION_ID="10"
+VERSION="10 (buster)"
+VERSION_CODENAME=buster
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+```
+
+##### STEPS TO REPRODUCE
+1. Create the following playbook in `/home/ansible/provisioning/playbooks/`:
+
+`update_packages.yml`
+
+```yml
+---
+- hosts: "all"
+  serial: "{{ PROMPT_CHECK_HOST_AMOUNT }}"
+  any_errors_fatal: "yes"
+  vars_prompt:
+    - name: PROMPT_CHECK_HOST_AMOUNT
+      prompt: "How many hosts should be checked at once?"
+      default: "2"
+      private: "no"
+
+  tasks:
+    - name: update the package cache
+      package:
+        cache_valid_time: "86400"
+        update_cache: "yes"
+      tags:
+        - update_packages
+
+    - name: register upgradable packages
+      shell: "apt list --upgradable"
+      register: "UPGRADEABLE_PACKAGES_LIST"
+      changed_when: "false"
+      tags:
+        - update_packages
+
+    - name: save variable as ansible fact
+      set_fact:
+        UPGRADEABLE_PACKAGES_LIST: "{{ UPGRADEABLE_PACKAGES_LIST.stdout }}"
+      tags:
+        - update_packages
+
+    - name: list upgradeable packages
+      debug:
+        var: UPGRADEABLE_PACKAGES_LIST
+      tags:
+        - update_packages
+
+    - name: waiting for input
+      pause:
+        prompt: "check, if there are any critical updates. press 'enter' to continue, 'ctrl+c' to abort"
+      tags:
+        - update_packages
+
+    - name: update all upgradable packages
+      package:
+        cache_valid_time: "86400"
+        update_cache: "yes"
+        upgrade: "yes"
+        force_apt_get: "yes"
+        state: "latest"
+      tags:
+        - update_packages
+
+    - name: remove packages from cache
+      package:
+        autoclean: "yes"
+      tags:
+        - update_packages
+
+    - name: remove dependencies
+      package:
+        autoremove: "yes"
+      tags:
+        - update_packages
+
+  post_tasks:
+    - name: update file database
+      shell: "updatedb"
+      changed_when: "false"
+      tags:
+        - update_packages
+```
+
+2. Execute the playbook:
+```bash
+$ ansible-playbook --inventory="inventory.yml" playbooks/update_packages.yml
+```
+
+3. Enter a number
+
+##### EXPECTED RESULTS
+It should not work, since I am using a variable, which was actually not defined before.
+
+##### ACTUAL RESULTS
+```bash
+ansible-playbook 2.7.7
+  config file = /home/ansible/provisioning/ansible.cfg
+  configured module search path = ['/home/ansible/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  executable location = /usr/bin/ansible-playbook
+  python version = 3.7.3 (default, Apr  3 2019, 05:39:12) [GCC 8.3.0]
+Using /home/ansible/provisioning/ansible.cfg as config file
+setting up inventory plugins
+Parsed /home/ansible/provisioning/inventory.yml inventory source with yaml plugin
+Loading callback plugin yaml of type stdout, v2.0 from /usr/lib/python3/dist-packages/ansible/plugins/callback/yaml.py
+
+PLAYBOOK: update_packages.yml *****************************************************************************************************************************************************************************************************
+1 plays in playbooks/update_packages.yml
+How many hosts should be checked at once? [2]: 1
+
+PLAY [all] ************************************************************************************************************************************************************************************************************************
+META: ran handlers
+
+TASK [update the package cache] ***************************************************************************************************************************************************************************************************
+task path: /home/ansible/provisioning/playbooks/update_packages.yml:28
+Running apt
+Using module file /usr/lib/python3/dist-packages/ansible/modules/packaging/os/apt.py
+<192.168.0.101> ESTABLISH SSH CONNECTION FOR USER: ansible
+<192.168.0.101> SSH: EXEC ssh -vvv -o ControlMaster=auto -o ControlPersist=5m -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o Port=1337 -o 'IdentityFile="/home/ansible/.ssh/id_ed25519"' -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o User=ansible -o ConnectTimeout=10 -o 'ControlPath=/home/ansible/.ssh/cm/ansible-%r@%h:%p[%n].cm' 192.168.0.101 '/bin/sh -c '"'"'sudo -H -S -n -u root /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-kysfxswcergbvcpevaqtibioblzdgamk; /usr/bin/python'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+Escalation succeeded
+<192.168.0.101> (0, b'\n{"invocation": {"module_args": {"dpkg_options": "force-confdef,force-confold", "autoremove": false, "force": false, "force_apt_get": false, "install_recommends": null, "package": null, "autoclean": false, "purge": false, "allow_unauthenticated": false, "state": "present", "upgrade": null, "update_cache": true, "default_release": null, "only_upgrade": false, "deb": null, "cache_valid_time": 86400}}, "cache_updated": false, "changed": false, "cache_update_time": 1576932841}\n', b'OpenSSH_7.9p1 Debian-10+deb10u1, OpenSSL 1.1.1d  10 Sep 2019\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 19: Applying options for *\r\ndebug2: resolve_canonicalize: hostname 192.168.0.101 is address\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 6894\r\ndebug3: mux_client_request_session: session request sent\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\n')
+ok: [pihole.local] => changed=false 
+  cache_update_time: 1576932841
+  cache_updated: false
+  invocation:
+    module_args:
+      allow_unauthenticated: false
+      autoclean: false
+      autoremove: false
+      cache_valid_time: 86400
+      deb: null
+      default_release: null
+      dpkg_options: force-confdef,force-confold
+      force: false
+      force_apt_get: false
+      install_recommends: null
+      only_upgrade: false
+      package: null
+      purge: false
+      state: present
+      update_cache: true
+      upgrade: null
+
+TASK [register upgradable packages] ***********************************************************************************************************************************************************************************************
+task path: /home/ansible/provisioning/playbooks/update_packages.yml:35
+Using module file /usr/lib/python3/dist-packages/ansible/modules/commands/command.py
+<192.168.0.101> ESTABLISH SSH CONNECTION FOR USER: ansible
+<192.168.0.101> SSH: EXEC ssh -vvv -o ControlMaster=auto -o ControlPersist=5m -o UserKnownHostsFile=/dev/null -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o Port=1337 -o 'IdentityFile="/home/ansible/.ssh/id_ed25519"' -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o User=ansible -o ConnectTimeout=10 -o 'ControlPath=/home/ansible/.ssh/cm/ansible-%r@%h:%p[%n].cm' 192.168.0.101 '/bin/sh -c '"'"'sudo -H -S -n -u root /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-eeupfcbxwikueumlwnwhgypzlivbursu; /usr/bin/python'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+Escalation succeeded
+<192.168.0.101> (0, b'\n{"changed": true, "end": "2019-12-21 14:51:55.873596", "stdout": "Listing...", "cmd": "apt list --upgradable", "rc": 0, "start": "2019-12-21 14:51:55.732134", "stderr": "\\nWARNING: apt does not have a stable CLI interface. Use with caution in scripts.", "delta": "0:00:00.141462", "invocation": {"module_args": {"creates": null, "executable": null, "_uses_shell": true, "_raw_params": "apt list --upgradable", "removes": null, "argv": null, "warn": true, "chdir": null, "stdin": null}}}\n', b'OpenSSH_7.9p1 Debian-10+deb10u1, OpenSSL 1.1.1d  10 Sep 2019\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 19: Applying options for *\r\ndebug2: resolve_canonicalize: hostname 192.168.0.101 is address\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 6894\r\ndebug3: mux_client_request_session: session request sent\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\n')
+ok: [pihole.local] => changed=false
+  cmd: apt list --upgradable
+  delta: '0:00:00.141462'
+  end: '2019-12-21 14:51:55.873596'
+  invocation:
+    module_args:
+      _raw_params: apt list --upgradable
+      _uses_shell: true
+      argv: null
+      chdir: null
+      creates: null
+      executable: null
+      removes: null
+      stdin: null
+      warn: true
+  rc: 0
+  start: '2019-12-21 14:51:55.732134'
+  stderr: |2-
+
+    WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+  stderr_lines:
+  - ''
+  - 'WARNING: apt does not have a stable CLI interface. Use with caution in scripts.'
+  stdout: Listing...
+  stdout_lines: <omitted>
+
+TASK [save variable as ansible fact] **********************************************************************************************************************************************************************************************
+task path: /home/ansible/provisioning/playbooks/update_packages.yml:42
+ok: [pihole.local] => changed=false
+  ansible_facts:
+    UPGRADEABLE_PACKAGES_LIST: Listing...
+
+TASK [list upgradeable packages] **************************************************************************************************************************************************************************************************
+task path: /home/ansible/provisioning/playbooks/update_packages.yml:48
+ok: [pihole.local] =>
+  UPGRADEABLE_PACKAGES_LIST: Listing...
+
+TASK [waiting for input] **********************************************************************************************************************************************************************************************************
+task path: /home/ansible/provisioning/playbooks/update_packages.yml:54
+[waiting for input]
+check, if there are any critical updates. press 'enter' to continue, 'ctrl+c' to abort:
+[...]
+```
+````
