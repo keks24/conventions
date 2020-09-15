@@ -1,9 +1,11 @@
 # conventions
 conventions i use to be consistent as much as possible.
 
+Table of Contents
+=================
+
 * [git](#git)
    * [commits](#commits)
-      * [issue and pull-request templates](#issue-and-pull-request-templates)
       * [example commit](#example-commit)
    * [branch naming convention](#branch-naming-convention)
       * [example branch name](#example-branch-name)
@@ -42,6 +44,9 @@ conventions i use to be consistent as much as possible.
    * [structure](#structure)
       * [jira](#jira)
          * [example ticket](#example-ticket)
+      * [git](#git-2)
+         * [example issue](#example-issue)
+* [Table of Contents](#table-of-contents-1)
 
 # git
 ## commits
@@ -489,7 +494,9 @@ https://<i_found_some_information_there>.com
 * Gluster
     * https://github.com/gluster/glusterfs/tree/master/.github
 
-#### [example issue](https://github.com/ansible/ansible/issues/66020)
+#### example issue
+* https://github.com/ansible/ansible/issues/66020
+
 ````no-highlight
 ##### SUMMARY
 I am using prompt in vars_prompt to manipulate the variable serial in a playbook to define how many of my hosts should be updated at once. I am not sure, if this should be possible, because I am using a variable before it was actually defined. I always guessed, that a playbook is read top-down.
