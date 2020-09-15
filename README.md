@@ -46,7 +46,6 @@ Table of Contents
          * [example ticket](#example-ticket)
       * [git](#git-2)
          * [example issue](#example-issue)
-* [Table of Contents](#table-of-contents-1)
 
 # git
 ## commits
