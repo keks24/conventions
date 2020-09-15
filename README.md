@@ -256,38 +256,47 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
     * every possible way to control the daemon should be available in the directory `handlers`
 
 ### example handlers
-#### `roles/aria2c/handlers/aria2c_systemd_handlers.yml`
+#### `roles/nfs_share/handlers/nfs-kernel-server_handlers.yml`
 ```yml
 ---
-- name: handler_start_aria2c
+- name: handler_start_nfs-kernel-server
   systemd:
-    name: "aria2c.service"
+    name: "nfs-kernel-server.service"
     daemon_reload: "yes"
     state: "started"
 
-- name: handler_stop_aria2c
+- name: handler_stop_nfs-kernel-server
   systemd:
-    name: "aria2c.service"
+    name: "nfs-kernel-server.service"
     daemon_reload: "yes"
     state: "stopped"
 
-- name: handler_restart_aria2c
+- name: handler_restart_nfs-kernel-server
   systemd:
-    name: "aria2c.service"
+    name: "nfs-kernel-server.service"
     daemon_reload: "yes"
     state: "restarted"
 
-- name: handler_enable_aria2c
+- name: handler_reload_nfs-kernel-server
   systemd:
-    name: "aria2c.service"
+    name: "nfs-kernel-server.service"
+    daemon_reload: "yes"
+    state: "reloaded"
+
+- name: handler_enable_nfs-kernel-server
+  systemd:
+    name: "nfs-kernel-server.service"
     daemon_reload: "yes"
     enabled: "yes"
 
-- name: handler_disable_aria2c
+- name: handler_disable_nfs-kernel-server
   systemd:
-    name: "aria2c.service"
+    name: "nfs-kernel-server.service"
     daemon_reload: "yes"
     enabled: "no"
+
+- name: handler_reexport_nfs-kernel-server
+  shell: "/usr/sbin/exportfs -r"
 ```
 
 ## task structure
