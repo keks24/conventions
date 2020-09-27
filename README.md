@@ -302,7 +302,7 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
 ```
 
 ## task structure
-* use the new `newline syntax` and do use the `equal sign syntax` to improve readability!
+* use the new `newline syntax` and avoid the `equal sign syntax` to improve readability!
 * always use the `main.yml` to `include` other `.yml` files
     * also `set variables` for met conditions
 * write task names in `lowercase`
