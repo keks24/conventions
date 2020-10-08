@@ -7,8 +7,9 @@ Table of Contents
 * [git](#git)
    * [commits](#commits)
       * [example commit](#example-commit)
-   * [branch naming convention](#branch-naming-convention)
-      * [example branch name](#example-branch-name)
+   * [branches](#branches)
+      * [branch naming convention](#branch-naming-convention)
+         * [example branch name](#example-branch-name)
 * [placeholder variables](#placeholder-variables)
    * [example variables](#example-variables)
       * [Bash](#bash)
@@ -64,7 +65,11 @@ Table of Contents
 $ git commit README.md --message="write more about committing"
 ```
 
-## branch naming convention
+## branches
+* the branch `master` should `be clean!`, since with each commit one confirms, that the code works!
+* experiments and tests should be done on `separate branches!`
+
+### branch naming convention
 * use `underlines` as description delimiter
 
 ```no-highlight
@@ -77,7 +82,7 @@ $ git commit README.md --message="write more about committing"
 <issue_number>/merge/<short_description>
 ```
 
-### example branch name
+#### example branch name
 ```no-highlight
 3/feature/client_zsh_config
 ```
