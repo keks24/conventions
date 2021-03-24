@@ -261,6 +261,8 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
 * use `meta` directory to include dependencies
 * daemons should be controlled by `handlers`
     * every possible way to control the daemon should be available in the directory `handlers`
+    * handler names always start with the prefix `handler_`
+    * keep everything in `lowercase`
 
 ### example handlers
 #### `roles/nfs_share/handlers/nfs-kernel-server_handlers.yml`
