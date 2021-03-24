@@ -231,7 +231,7 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
 * use this module to copy `multiple files`
 
 ### template
-* when `copying template files`, always use `# {{ ansible_managed }}` at the `top of the file` to indicate that the file was `copied using Ansible` and `should not be edited` without thought
+* when `copying template files`, always use `<comment_sign> {{ ansible_managed }}` at the `top of the file` to indicate that the file was `copied using Ansible` and `should not be edited` without thought
 
 ### git
 * when cloning, always use `force: "yes"`
