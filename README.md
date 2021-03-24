@@ -53,7 +53,7 @@ Table of Contents
 * use the `english language`
 * use `imperative` and `present tense`
 * use `commas` as delimiter
-* keep everything `lowercase`
+* keep everything in `lowercase`
 * keep descriptions as `short` as possible
 * commit each file `individually`
     * do `in-line commits`, if possible
