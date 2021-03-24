@@ -238,7 +238,7 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
 
 ### shell
 * to `sanitise` any variables, use `{{ var | quote }}`, instead of `{{ var }}`, to make sure, they do not include `evil things like semicolons`
-* make it idempotent by creating files in the directory `/usr/local/etc/.ansible_dotfile_switches` and using `creates`, if it does make sense
+* make it idempotent by creating files in the directory `/usr/local/etc/ansible/dotfile_switches` and using `creates`, if it does make sense
     * it might be better to create `custom Ansible facts` and using `when` for this
 * when using the module, use `creates` to gurantee idempotency
 
