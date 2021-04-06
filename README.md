@@ -497,6 +497,8 @@ https://<i_found_some_information_there>.com
     * https://github.com/ansible/ansible/tree/devel/.github
 * Gitea
     * https://github.com/go-gitea/gitea/tree/master/.github
+* LineageOS
+    * https://gitlab.com/LineageOS/issues/android/-/issues
 * Gluster
     * https://github.com/gluster/glusterfs/tree/master/.github
 
