@@ -1,5 +1,5 @@
-# conventions
-conventions i use to be consistent as much as possible.
+# Conventions
+Conventions I use to be consistent as much as possible.
 
 Table of Contents
 =================
@@ -48,8 +48,8 @@ Table of Contents
       * [git](#git-2)
          * [example issue](#example-issue)
 
-# git
-## commits
+# Git
+## Commits
 * use the `english language`
 * use `imperative` and `present tense`
 * use `commas` as delimiter
@@ -60,16 +60,16 @@ Table of Contents
 * no bullshit commits, like: `i have done something`, `find the mistake` or worse `git commit --message="$(curl 'http://api.icndb.com/jokes/random')"` **YES**, Mr. H., I am looking at you! >:(
     * no stupid mass commits, like: `git commit *` or `git commit --all`
 
-### example commit
+### Example commit
 ```bash
 $ git commit README.md --message="write more about committing"
 ```
 
-## branches
+## Branches
 * the branch `master` should `be clean!`, since with each commit one confirms, that the code works!
 * experiments and tests should be done on `separate branches!`
 
-### branch naming convention
+### Branch naming convention
 * use `underlines` as description delimiter
 
 ```no-highlight
@@ -82,7 +82,7 @@ $ git commit README.md --message="write more about committing"
 <issue_number>/merge/<short_description>
 ```
 
-#### example branch name
+#### Example branch name
 ```no-highlight
 3/feature/client_zsh_config
 ```
@@ -121,14 +121,14 @@ $ tree .git/{logs,refs}
     └── v1.1.0
 ```
 
-# placeholder variables
+# Placeholder variables
 * use the personalised variable `nom` instead of `test`.
     * `test` is built-in command in `Bash`
     * when using `conditional statements`, `nom` means `OK` and `NOM` means `not OK`.
 * `<some_short_description>`
     * `some_` is a prefix to emphasise, that it is a `placeholder variable`
 
-## example variables
+## Example variables
 ### Bash
 ```bash
 $ nom="123"
@@ -144,7 +144,7 @@ $ if [[ "${nom}" == "123" ]]; then echo "nom"; else echo "NOM"; fi
 /home/<some_username>/downloads/
 ```
 
-# editing configuration files
+# Editing configuration files
 * always keep the default by `commenting it`
 * every edit causes a further comment underneath, to make backtraces possible
 
@@ -152,7 +152,7 @@ $ if [[ "${nom}" == "123" ]]; then echo "nom"; else echo "NOM"; fi
 <comment_sign> custom - YYYYMMDD - <issue_number> - <first_letter_of_firstname><lastname>: <short_description>
 ```
 
-## example configuration edit
+## Example configuration edit
 ```no-highlight
 #COMMON_FLAGS="-O2 -pipe"
 # custom - 20200805 - 2 - rfischer: set "-march" and "-mtune" to "ivybridge", set "-ftree-vectorize" and use "-O2"
@@ -164,8 +164,8 @@ PORTAGE_ELOG_CLASSES="warn error log"
 PORTAGE_ELOG_SYSTEM="save"
 ```
 
-# ansible
-## general
+# Ansible
+## General
 * be idempotent: try to get `ok` as much as possible, when executing a `playbook` or `role` twice.
 * avoid using the `shell` module as much as possible to gurantee idempotency
 * write comments in `lowercase`
@@ -173,7 +173,7 @@ PORTAGE_ELOG_SYSTEM="save"
 ## `ansible.cfg`
 * use `ssh pipelining` and not the `deprecated accelerate` option!!
 
-### example configuration file
+### Example configuration file
 ```ini
 [defaults]
 host_key_checking       = no
@@ -212,8 +212,8 @@ enable_plugins          = yaml, host_list
 ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm, .swp, .txt, ~
 ```
 
-## modules
-### general
+## Modules
+### General
 * use absolute paths everywhere
 * add a `trailing slash`, if a path ends with a `directory name` or `mentioning a directory`
     * this does not apply for `symlink destinations`, since this `results into an error`
@@ -223,39 +223,39 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
 * when installing a `new package`, immediately call `enable` and `restart` handler, if there is a way to control the daemon
 * use `validate` as much as possible to validate, that the manipulated file has `correct syntax!`: Very important for changes in `/etc/ssh/sshd_config` and so forth!
 
-### copy
+### Copy
 * use this module to copy a `single file`
 * using this module to copy `multiple files` may `result in an error!`
 
-### synchronize
+### Synchronize
 * use this module to copy `multiple files`
 
-### template
+### Template
 * when `copying template files`, always use `<comment_sign> {{ ansible_managed }}` at the `top of the file` to indicate that the file was `copied using Ansible` and `should not be edited` without thought
 
-### git
+### Git
 * when cloning, always use `force: "yes"`
 
-### shell
+### Shell
 * to `sanitise` any variables, use `{{ var | quote }}`, instead of `{{ var }}`, to make sure, they do not include `evil things like semicolons`
 * make it idempotent by creating files in the directory `/usr/local/etc/ansible/dotfile_switches` and using `creates`, if it does make sense
     * it might be better to create `custom Ansible facts` and using `when` for this
 * when using the module, use `creates` to gurantee idempotency
 
-### replace
+### Replace
 * when `uncommenting lines`, use this module, instead of `lineinfile` to avoid redundant options
 * always use `very precise regular expressions` to find a certain keyword: `/etc/ssh/sshd_config/`: `(.)?.*Port.*[0-9]{1,5}`
 * when writing regular expressions, use `double quotes`, if necessary, use `single quotes`
 
-### lineinfile
+### Lineinfile
 * always use `very precise regular expressions` to find a certain keyword: `/etc/ssh/sshd_config/`: `(.)?.*Port.*[0-9]{1,5}`
 * when writing regular expressions, use `double quotes`, if necessary, use `single quotes`
 
-## variables
+## Variables
 * write `custom variables in uppercase` to have a `clear separation` between `custom variables`, `Ansible variables and facts`
 * when using variables in `ansible vault`, use `VAULT_` as prefix
 
-## role structure
+## Role structure
 * use `underscore` as delimiter for role `directory names`
 * `mirror the remote directory structure` in roles to know where the file will be placed, so analysing the `playbook` is not necessary: `files/etc/zsh/zshrc.local`, `templates/etc/nginx/sites-available/01-domain-name.local`
 * use `meta` directory to include dependencies
@@ -264,7 +264,7 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
     * handler names always start with the prefix `handler_`
     * keep everything in `lowercase`
 
-### example handlers
+### Example handlers
 #### `roles/nfs_share/handlers/nfs-kernel-server_handlers.yml`
 ```yml
 ---
@@ -308,7 +308,7 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
   shell: "/usr/sbin/exportfs -r"
 ```
 
-## task structure
+## Task structure
 * use the new `newline syntax` and avoid the `equal sign syntax` to improve readability!
 * always use the `main.yml` to `include` other `.yml` files
     * also `set variables` for met conditions
@@ -334,7 +334,7 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
 * when installing packages, use the following convention: `<write_what_it_does> (<package_name>)`
     * if there are `multiple packages`, do not include any package name
 
-### example tasks
+### Example tasks
 #### `common_packages.yml`
 ```yml
 - name: install common tools
@@ -438,9 +438,9 @@ ignore_extensions       = .bak, .cfg, .ini, .md, .orig, .pyc, .pyo, .retry, .rpm
     - tmux
 ```
 
-# issue tracking
-## structure
-### jira
+# Issue tracking
+## Structure
+### Jira
 ```no-highlight
 subject: <main_subject>: <short_description>
 
@@ -457,7 +457,7 @@ subject: <main_subject>: <short_description>
 <link_to_sourcen>
 ```
 
-#### example ticket
+#### Example ticket
 ```no-highlight
 New backup solution: Set up a decent backup server
 
@@ -491,7 +491,7 @@ https://<i_found_some_information_here>.com
 https://<i_found_some_information_there>.com
 ```
 
-### git
+### Git
 * Ansible
     * https://github.com/ansible/ansible/issues/new/choose
     * https://github.com/ansible/ansible/tree/devel/.github
@@ -502,7 +502,8 @@ https://<i_found_some_information_there>.com
 * Gluster
     * https://github.com/gluster/glusterfs/tree/master/.github
 
-#### example issue
+#### Example issues
+##### Ansible
 * https://github.com/ansible/ansible/issues/66020
 
 ````no-highlight
