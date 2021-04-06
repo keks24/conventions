@@ -795,7 +795,7 @@ check, if there are any critical updates. press 'enter' to continue, 'ctrl+c' to
 ```
 ````
 
-##### GitLab
+##### LineageOS
 ````
 <!-- INSTRUCTIONS
 What not to report
