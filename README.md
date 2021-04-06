@@ -792,3 +792,60 @@ check, if there are any critical updates. press 'enter' to continue, 'ctrl+c' to
 [...]
 ```
 ````
+
+##### GitLab
+````
+<!-- INSTRUCTIONS
+What not to report
+- Bugs in unofficial builds or anything not downloaded from our official portal
+- Missing Builds
+- Problems with the website
+- Asking for device support
+- Feature requests
+
+If you need help please see https://www.lineageos.org/community/
+
+Anything between <!- - and - -> won't be shown when your issue is created.
+-->
+
+## Expected Behavior
+<!--- Tell us what should happen -->
+The developer option `Mobile data always active` should be `turned off by default` for future `LineageOS image releases` in order to extend battery life.
+
+## Current Behavior
+The current image `LinageOS 18.1 (lineage-18.1-20210401-nightly-bacon-signed.zip)` activates this developer option automatically, which drains the battery faster. After estimated `one and a half days` the battery is empty. Disabling it, increases the battery life `up to four days`.
+
+## Possible Solution
+Workaround: Disabling it after each LineageOS update.
+
+## Steps to Reproduce
+<!--- Provide a link to a live example, or an unambiguous set of steps to -->
+<!--- reproduce this bug. Include code to reproduce, if relevant -->
+Assuming, that `Developer options` has been activated before.
+1. Go to `Settings - System - Developer options`
+2. Scroll down to `Mobile Data always active`
+3. `Mobile Data always active` should be enabled
+4. Disable the option.
+
+<!-- THIS SECTION IS MANDATORY. If it is not filled out correctly, your issue will be marked as invalid. -->
+<!-- Example:
+
+/device mako (found at https://wiki.lineageos.org/devices/)
+/version lineage-15.1
+/date 2017-12-15
+/kernel
+/baseband
+/mods Google Apps, F-Droid
+-->
+
+
+/device bacon
+/version lineage-18.1
+/date 20210401
+/kernel
+/baseband
+/mods none
+
+<!-- Replace the following line with "I have read the directions" -->
+I have read the directions.
+````
