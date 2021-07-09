@@ -125,7 +125,7 @@ $ tree .git/{logs,refs}
 
 # Placeholder variables
 * use the personalised variable `nom` instead of `test`.
-    * `test` is built-in command in `Bash`
+    * `test` is a built-in command in `Bash`
     * when using `conditional statements`, `nom` means `OK` and `NOM` means `not OK`.
 * `<some_short_description>`
     * `some_` is a prefix to emphasise, that it is a `placeholder variable`
