@@ -127,8 +127,9 @@ $ tree .git/{logs,refs}
 * use the personalised variable `nom` instead of `test`.
     * `test` is a built-in command in `Bash`
     * when using `conditional statements`, `nom` means `OK` and `NOM` means `not OK`.
-* `<some_short_description>`
-    * `some_` is a prefix to emphasise, that it is a `placeholder variable`
+* `<some_short_description>`, `<something>`
+    * `arrow heads` (`<>`) are used to emphasise, that it is a `placeholder variable`
+    * `some_` is a prefix to additionaly emphasise, that it should be replaced
 
 ## Example variables
 ### Bash
@@ -144,6 +145,11 @@ $ if [[ "${nom}" == "123" ]]; then echo "nom"; else echo "NOM"; fi
 ### Anything else
 ```no-highlight
 /home/<some_username>/downloads/
+```
+```yml
+---
+username: <alphanumeric_value>
+password: <numeric_value>
 ```
 
 # Editing configuration files
